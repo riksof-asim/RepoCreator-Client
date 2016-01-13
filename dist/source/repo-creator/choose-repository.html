@@ -7,6 +7,7 @@
 				<div class="circle-node">1</div><div class="declaration">CHOOSE A TEMPLATE FOR YOUR NEW REPOSITORY</div>
 				<div class="declaration-tag">Works best with repositories that have magic replacement strings in them.</div>
 			</div>
+		
 			<div class="col-xs-12 panel-group" id="accordion">
 				<div class="panel panel-default">
 
@@ -36,6 +37,34 @@
 						</div>
 					</div>
 
+				<!------------- This section is for LIST Of REPOSITORY -------------->
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" click.delegate="showFavorites()">
+							LIST OF REPOSITORY <i class="indicator glyphicon pull-right" class.bind="isFavoritesSelected ? 'glyphicon-chevron-down' : 'glyphicon-chevron-up'"></i>
+							</a>
+						</h4>
+					</div>
+					<div class="panel-collapse collapse" class.bind="isFavoritesSelected ? 'in' : ''">
+						<div class="panel-body" if.bind="loggedIn">
+							<div class="data-row" repeat.for="template of repositoriesTemplates">
+								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>
+									${template.owner}: ${template.name}
+									<div class="data-inner-link">
+										<a href="" style="margin-right:7px;" click.delegate="$parent.cancelSponsorship(template)">
+											<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>
+										</a>
+										
+									</div>		
+								</a>
+							</div>
+						</div>
+						<div class="panel-body inside-favorites" if.bind="!loggedIn">
+							<div class="fav-label">Login with GitHub to see your favorites.</div>
+							<div><img src="resources/icons/GitHub.svg"></img></div>
+							<button class="fav-button" type="submit" click.delegate="fetchFavorites()">LOG IN</button>
+						</div>
+					</div>
 					<!------------- This section is for FAVORITES -------------->
 					<div class="panel-heading">
 						<h4 class="panel-title">
